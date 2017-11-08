@@ -1,9 +1,17 @@
 const AudioContext = window.AudioContext || window.webkitAudioContext;
 const audioCtx = new AudioContext();
 
-const audioSources = audioCtx.createMediaStreamSource();
-const finalOutput = audioCtx.destination;
+const source = audioCtx.createBufferSource();
+const arrayBuffer =
+audioCtx.decodedAudioData(arrayBuffer).then((decodedData) => {
+  source.buffer = decodedData;
+});
 
+const finalOutput = audioCtx.destination;
+//connect the AudioBufferSourceNode to the destination aka system speaker
+source.connect(finalOutput);
+//start the source playing
+source.start();
 
 /*
 Typical Flow:
