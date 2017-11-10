@@ -56,7 +56,17 @@ window.onload = () => {
 
   const canvas = document.getElementById("oscilloscope");
   const canvasCtx = canvas.getContext("2d");
-  const activeVisualization = 'circle';
+  let activeVisualization = 'ripple';
+
+    /* Allow users to select styles */
+
+  document.getElementById('wave').addEventListener('click', () => {
+    activeVisualization = 'wave';
+  });
+
+  document.getElementById('ripple').addEventListener('click', () => {
+    activeVisualization = 'ripple';
+  });
 
   // set canvas width and height
   $('#oscilloscope').attr({
@@ -71,12 +81,13 @@ window.onload = () => {
 
     function draw() {
       const drawVisual = requestAnimationFrame(draw);
-
       analyserNode.getByteTimeDomainData(dataArray);
 
-      if (activeVisualization === 'circle') {
+      if (activeVisualization === 'ripple') {
+        canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
         drawCircle(dataArray, bufferLength);
       } else {
+        canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
         drawOscilloscope(dataArray, bufferLength);
       }
     }
@@ -103,14 +114,14 @@ window.onload = () => {
     var x = canvas.width / 2;
     var radius = 20;
 
-    const numberOfCircles = 10;
+    const numberOfCircles = 30;
     const iterator = Math.floor(dataArray.length / numberOfCircles);
 
     for (var i = 0; i < dataArray.length; i += iterator) {
       var v = dataArray[i] / 128.0;
-      var y = v * canvas.height / 2;
+      var y = canvas.height / 2;
       canvasCtx.beginPath();
-      canvasCtx.arc(x, y, radius, 0, Math.PI * 2, true);
+      canvasCtx.arc(x, y, radius * v, 0, Math.PI * 2, true);
       canvasCtx.stroke();
       canvasCtx.closePath();
       radius += 7;
@@ -119,9 +130,6 @@ window.onload = () => {
   }
 
   const drawOscilloscope = (dataArray, bufferLength) => {
-    const drawVisual = requestAnimationFrame(drawOscilloscope);
-    analyserNode.getByteTimeDomainData(dataArray);
-
     canvasCtx.fillStyle = '#aa8caf';
     canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -133,7 +141,7 @@ window.onload = () => {
     var sliceWidth = canvas.width * 1.0 / bufferLength;
     var x = 0;
 
-    for (var i = 0; i < bufferLength; i += 2) {
+    for (var i = 0; i < bufferLength; i += 1) {
 
       var v = dataArray[i] / 128.0;
       var y = v * canvas.height / 2;
@@ -150,6 +158,8 @@ window.onload = () => {
     canvasCtx.lineTo(canvas.width, canvas.height / 2);
     canvasCtx.stroke();
   };
+
+
 };
 
 

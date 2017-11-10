@@ -1,0 +1,28 @@
+{
+  "name": "sync",
+  "version": "1.0.0",
+  "description": "Sync is a web application that generates stimulating visual representations of music files. It is built with Web Audio API and HTML5 Canvas.",
+  "main": "visualizer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "webpack": "webpack --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thuyD/Sync.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thuyD/Sync/issues"
+  },
+  "homepage": "https://github.com/thuyD/Sync#readme",
+  "dependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "three.js": "^0.77.1",
+    "webpack": "^3.8.1"
+  }
+}
