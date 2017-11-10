@@ -26,7 +26,7 @@ body {
 .main-container {
   min-height: 100%;
   color: #f0f0f0;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Lato', sans-serif;
   font-size: 20px;
 	position: relative;
 	z-index: 1;
@@ -71,4 +71,11 @@ display: none;
 	top: 0px;
 	left: 0px;
 	z-index: 0;
+}
+
+#color-bar {
+	background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet, hotpink);
+	opacity: 0.3;
+	height: 20px;
+	width: 180px;
 }

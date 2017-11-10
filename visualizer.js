@@ -39,13 +39,22 @@ window.onload = () => {
   /* Pause and resume audio */
 
   playMusic = () => {
-    audioCtx.resume();
-    console.log(audioCtx);
+    if (audioCtx) {
+      audioCtx.resume();
+      if (rotated) {
+        const newIntervalId = window.setInterval(rotateColor, 3000);
+        intervalId = newIntervalId;
+      }
+    }
   };
 
   pauseMusic = () => {
-    audioCtx.suspend();
-    console.log(audioCtx);
+    if (audioCtx) {
+      audioCtx.suspend();
+      if (rotated) {
+        window.clearInterval(intervalId);
+      }
+    }
   };
 
   document.getElementById('play').addEventListener('click', playMusic);
@@ -67,6 +76,13 @@ window.onload = () => {
   document.getElementById('ripple').addEventListener('click', () => {
     activeVisualization = 'ripple';
   });
+
+  //set default color
+  let hue = 52;
+  let hue2 = 235;
+  let sat = 95;
+  let light = 42;
+  let alpha = 0.8;
 
   // set canvas width and height
   $('#oscilloscope').attr({
@@ -102,11 +118,8 @@ window.onload = () => {
 
 
   function drawCircle(dataArray, bufferLength) {
-    canvasCtx.fillStyle = '#aa8caf';
-    canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
-
     canvasCtx.lineWidth = 2;
-    canvasCtx.strokeStyle = '#f0f0f0';
+    canvasCtx.strokeStyle = `hsla(${hue}, ${sat}%, ${light}%, 0.6)`;
 
     canvasCtx.beginPath();
 
@@ -114,7 +127,7 @@ window.onload = () => {
     var x = canvas.width / 2;
     var radius = 20;
 
-    const numberOfCircles = 30;
+    const numberOfCircles = 60;
     const iterator = Math.floor(dataArray.length / numberOfCircles);
 
     for (var i = 0; i < dataArray.length; i += iterator) {
@@ -122,23 +135,23 @@ window.onload = () => {
       var y = canvas.height / 2;
       canvasCtx.beginPath();
       canvasCtx.arc(x, y, radius * v, 0, Math.PI * 2, true);
+      canvasCtx.fillStyle = `hsla(${hue}, 100%, 40%, 0.02)`;
+      canvasCtx.fill();
+
       canvasCtx.stroke();
       canvasCtx.closePath();
-      radius += 7;
+      radius += 5;
       x += sliceWidth;
     }
   }
 
   const drawOscilloscope = (dataArray, bufferLength) => {
-    canvasCtx.fillStyle = '#aa8caf';
-    canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
-
     canvasCtx.lineWidth = 2;
-    canvasCtx.strokeStyle = '#f0f0f0';
+    canvasCtx.strokeStyle = `hsla(${hue}, ${sat}%, ${light}%, ${alpha})`;
 
     canvasCtx.beginPath();
 
-    var sliceWidth = canvas.width * 1.0 / bufferLength;
+    var sliceWidth = canvas.width * 1.0 / (bufferLength / 2);
     var x = 0;
 
     for (var i = 0; i < bufferLength; i += 1) {
@@ -159,6 +172,30 @@ window.onload = () => {
     canvasCtx.stroke();
   };
 
+
+  /* Color Picker */
+
+  let intervalId;
+  let rotated = false;
+
+  document.getElementById('color-bar').addEventListener("click", (event) => {
+    hue = event.clientX * 2;
+  });
+
+  document.getElementById('rotate-color').addEventListener("click", () => {
+    intervalId = window.setInterval(rotateColor, 3000);
+    rotated = true;
+  });
+
+  function rotateColor() {
+    if (hue + 30 <= 360 && hue2 <= 360) {
+      hue += 30;
+      hue2 += 30;
+    } else {
+      hue = 52;
+      hue2 = 235;
+    }
+  }
 
 };
 
