@@ -2,7 +2,9 @@ window.onload = () => {
   const AudioContext = window.AudioContext || window.webkitAudioContext;
   const playSample = document.getElementById('sample');
   const audioInput = document.getElementById('audio-input');
-  let audio, sourceNode, audioCtx, stage, analyserNode, startPlay, playMusic, pauseMusic;
+  const audioCtx = new AudioContext();
+  const analyserNode = audioCtx.createAnalyser();
+  let audio, sourceNode, stage, startPlay, playMusic, pauseMusic;
 
   playSample.addEventListener('click', () => {
     audio = new Audio('journeyman.mp3');
@@ -17,10 +19,7 @@ window.onload = () => {
 
   stage = () => {
     audio.addEventListener('canplay', () => {
-      audioCtx = new AudioContext();
-      analyserNode = audioCtx.createAnalyser();
-
-      visualizer(analyserNode);
+      visualizer();
       startPlay();
     });
   };
@@ -79,7 +78,6 @@ window.onload = () => {
 
   //set default color
   let hue = 52;
-  let hue2 = 235;
   let sat = 95;
   let light = 42;
   let alpha = 0.8;
@@ -188,17 +186,42 @@ window.onload = () => {
   });
 
   function rotateColor() {
-    if (hue + 30 <= 360 && hue2 <= 360) {
+    if (hue + 30 <= 360) {
       hue += 30;
-      hue2 += 30;
     } else {
       hue = 52;
-      hue2 = 235;
+    }
+  }
+
+
+  /* Using microphone */
+  let webSource;
+  document.getElementById('start-monitoring').addEventListener('click', handleMonitoring);
+  document.getElementById('stop-monitoring').addEventListener('click', handleStopMonitoring);
+
+  function handleMonitoring() {
+    if (navigator.mediaDevices) {
+      navigator.mediaDevices.getUserMedia({ audio: true, video: false })
+      .then(function (stream) {
+        webSource = audioCtx.createMediaStreamSource(stream);
+        webSource.connect(analyserNode);
+        analyserNode.connect(audioCtx.destination);
+      }).catch(function(err) {
+        console.log("There was an error when getting microphone input: " + err);
+      });
+    } else {
+       console.log('getUserMedia not supported on your browser!');
+    }
+  }
+
+  function handleStopMonitoring() {
+    if (webSource) {
+      webSource.disconnect();
+      webSource = null;
     }
   }
 
 };
-
 
 
 /*
