@@ -2,7 +2,7 @@ var path = require('path');
 
 module.exports = {
   context: __dirname,
-  entry: "./wave_particles.js",
+  entry: "./scripts/main.js",
   output: {
     path: path.resolve(__dirname),
     filename: "bundle.js"
