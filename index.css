@@ -27,7 +27,7 @@ body {
   min-height: 100%;
   color: #f0f0f0;
   font-family: 'Lato', sans-serif;
-  font-size: 20px;
+  font-size: 17px;
 	position: relative;
 	z-index: 1;
 }
@@ -66,7 +66,7 @@ display: none;
   color: white;
 }
 
-#oscilloscope {
+#board {
 	position: absolute;
 	top: 0px;
 	left: 0px;

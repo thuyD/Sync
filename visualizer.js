@@ -19,8 +19,8 @@ window.onload = () => {
 
   stage = () => {
     audio.addEventListener('canplay', () => {
-      visualizer();
       startPlay();
+      visualizer();
     });
   };
 
@@ -62,7 +62,7 @@ window.onload = () => {
 
   /* Visualization */
 
-  const canvas = document.getElementById("oscilloscope");
+  const canvas = document.getElementById("board");
   const canvasCtx = canvas.getContext("2d");
   let activeVisualization = 'ripple';
 
@@ -83,10 +83,15 @@ window.onload = () => {
   let alpha = 0.8;
 
   // set canvas width and height
-  $('#oscilloscope').attr({
-    width: $(window).width(),
-    height: $(window).height()
-  });
+
+  const resizeCanvas = debounce(function() {
+    $('#board').attr({
+      width: $(window).width(),
+      height: $(window).height()
+    });
+  }, 250);
+
+  window.addEventListener('resize', resizeCanvas);
 
 
   const visualizer = () => {
@@ -206,6 +211,9 @@ window.onload = () => {
         webSource = audioCtx.createMediaStreamSource(stream);
         webSource.connect(analyserNode);
         analyserNode.connect(audioCtx.destination);
+        analyserNode.fftSize = 2048;
+        analyserNode.smoothingTimeConstant = 0.3;
+        visualizer();
       }).catch(function(err) {
         console.log("There was an error when getting microphone input: " + err);
       });
@@ -222,6 +230,22 @@ window.onload = () => {
   }
 
 };
+
+
+function debounce(func, wait, immediate) {
+	var timeout;
+	return function() {
+		var context = this, args = arguments;
+		var later = function() {
+			timeout = null;
+			if (!immediate) func.apply(context, args);
+		};
+		var callNow = immediate && !timeout;
+		clearTimeout(timeout);
+		timeout = setTimeout(later, wait);
+		if (callNow) func.apply(context, args);
+	};
+}
 
 
 /*
