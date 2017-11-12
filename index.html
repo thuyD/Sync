@@ -16,42 +16,73 @@
 
   <body>
     <main class="main-container">
-      <div class="logo-container">
-        <h1 class="logo">Sync</h1>
+      <div class="modal">
+        <div class="intro">
+          <span class="close">&times;</span>
+          <h1 class="logo">Sync</h1>
+          <p>A music visualizer built with Web Audio API.</p>
+          <div class="feature-list">
+            <div>
+              <i class="fa fa-music" aria-hidden="true"></i>
+              <p>Listen to a featured song or choose from your own library</p>
+            </div>
+            <div>
+              <i class="fa fa-microphone fa-lg" aria-hidden="true"></i>
+              <p>Use your microphone to give the visualizer live input</p>
+            </div>
+            <div>
+              <i class="fa fa-paint-brush" aria-hidden="true"></i>
+              <p>Select a color or cycle through colors</p>
+            </div>
+            <div>
+              <i class="fa fa-spinner" aria-hidden="true"></i>
+              <p>Choose from two different styles of sound visualization</p>
+            </div>
+          </div>
+          <p class="contact">Engineered and designed by Thuy Dao  <a href="https://github.com/thuyD/sync"><i class="fa fa-github" aria-hidden="true"></i></a></p>
+        </div>
       </div>
-      <br>
-      <div class="about"><i class="fa fa-question-circle" aria-hidden="true"></i></div>
-        <br>
-        <div id="sample" class="box"><a>PLAY SAMPLE MUSIC</a></div>
-        <br>
-        <div class="box">
-          <label for="audio-input" id="input-label">CHOOSE A SONG</label>
-          <input id="audio-input" type="file">
+
+        <div id="open-modal">
+          <i class="fa fa-question-circle" aria-hidden="true"></i>
         </div>
-        <br>
-        <div id="pause-play">
-          <div id="play"><i class="fa fa-play fa-lg" aria-hidden="true"></i></div>
-          <div id="pause"><i class="fa fa-pause fa-lg" aria-hidden="true"></i></div>
+
+        <div class="content">
+          <div class="left">
+            <div id="sample" class="box big"><a>PLAY A SAMPLE TRACK</a></div>
+            <br>
+            <div class="box">
+              <label for="audio-input" id="input-label" class="big">CHOOSE A SONG</label>
+              <input id="audio-input" type="file">
+            </div>
+            <br>
+            <div id="microphone">
+              <div id="mic" class="box big">USE MICROPHONE</div>
+              <div id="no-mic" class="box big">DISABLE MICROPHONE</div>
+            </div>
+            <br>
+            <div id="pause-play">
+              <div id="play"><i class="fa fa-play fa-lg" aria-hidden="true"></i></div>
+              <div id="pause"><i class="fa fa-pause fa-lg" aria-hidden="true"></i></div>
+            </div>
+          </div>
+
+          <div class="right">
+            <div class="options">
+              <div class="options-title big"><p>COLOR</p></div>
+              <div id="color-bar"></div>
+              <p id="rotate-color" class="small">ROTATE COLOR</p>
+            </div>
+            <br>
+            <div class="options">
+              <div class="options-title big"><p>STYLE</p></div>
+              <ul class="option-items">
+                <li id="wave" class="small">WAVEFORM</li>
+                <li id="ripple" class="small">RIPPLE</li>
+              </ul>
+            </div>
+          </div>
         </div>
-        <br>
-        <div id="microphone">
-          <div id="mic"><i class="fa fa-microphone fa-lg" aria-hidden="true"></i></div>
-          <br>
-          <div id="no-mic"><i class="fa fa-microphone-slash fa-lg" aria-hidden="true"></i></div>
-        </div>
-        <br>
-        <div>
-          <br>
-          <p>COLOR</p>
-          <div id="color-bar"></div>
-          <p id="rotate-color">ROTATE COLOR</p>
-        </div>
-        <br>
-        <p>STYLE</p>
-        <ul>
-          <li id="wave">WAVEFORM</li>
-          <li id="ripple">RIPPLE</li>
-        </ul>
     </main>
     <canvas id="board"></canvas>
   </body>

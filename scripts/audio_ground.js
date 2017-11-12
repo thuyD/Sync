@@ -115,12 +115,12 @@ class AudioGround {
   }
 
   startMonitoring() {
-    document.getElementsByClassName('fa-microphone')[0]
+    document.getElementById("mic")
     .addEventListener('click', this.handleMonitoring.bind(this));
   }
 
   stopMonitoring() {
-    document.getElementsByClassName('fa-microphone-slash')[0]
+    document.getElementById("no-mic")
     .addEventListener('click', this.handleStopMonitoring.bind(this));
   }
 
