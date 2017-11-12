@@ -1,4 +1,5 @@
 import AudioGround from './audio_ground.js';
+import Wave from './wave.js';
 
 window.onload = () => {
   const audio = new AudioGround();
@@ -13,4 +14,6 @@ window.onload = () => {
   audio.stopMonitoring();
 
   audio.setUpVisual();
+
+  Wave();
 };

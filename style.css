@@ -79,3 +79,28 @@ display: none;
 	height: 20px;
 	width: 180px;
 }
+
+#play, #pause {
+	display: none;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+}
+
+#pause-play {
+	position: relative;
+}
+
+#microphone {
+	position: relative;
+}
+
+#no-mic {
+	display: none;
+}
+
+#no-mic, #mic {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+}

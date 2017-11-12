@@ -11,7 +11,7 @@
     <script src="bundle.js"></script>
     <link rel="icon"
       type="image/png"
-      href="favicon.ico">
+      href="favicon.png">
   </head>
 
   <body>
@@ -29,15 +29,16 @@
           <input id="audio-input" type="file">
         </div>
         <br>
-        <div id="play"><i class="fa fa-play fa-lg" aria-hidden="true"></i></div>
+        <div id="pause-play">
+          <div id="play"><i class="fa fa-play fa-lg" aria-hidden="true"></i></div>
+          <div id="pause"><i class="fa fa-pause fa-lg" aria-hidden="true"></i></div>
+        </div>
         <br>
-        <div id="pause"><i class="fa fa-pause fa-lg" aria-hidden="true"></i></div>
-        <br>
-        <label>
-          <div id="start-monitoring"><i class="fa fa-microphone fa-lg" aria-hidden="true"></i></div>
+        <div id="microphone">
+          <div id="mic"><i class="fa fa-microphone fa-lg" aria-hidden="true"></i></div>
           <br>
-          <div id="stop-monitoring"><i class="fa fa-microphone-slash fa-lg" aria-hidden="true"></i></div>
-        </label>
+          <div id="no-mic"><i class="fa fa-microphone-slash fa-lg" aria-hidden="true"></i></div>
+        </div>
         <br>
         <div>
           <br>

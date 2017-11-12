@@ -8,6 +8,7 @@ class AudioGround {
     this.analyserNode.smoothingTimeConstant = 0.3;
     this.webSource = null;
     this.visual = new Visualization();
+    this.microphoneMode = "microphone";
   }
 
   setUpVisual() {
@@ -40,6 +41,7 @@ class AudioGround {
     audio.addEventListener('canplay', () => {
       this.startPlay(audio);
       this.visual.visualizer(this.analyserNode);
+      this.togglePlayPause('pause');
     });
   }
 
@@ -52,12 +54,12 @@ class AudioGround {
   }
 
   play() {
-    document.getElementById('play')
+    document.getElementsByClassName('fa-play')[0]
     .addEventListener('click', this.playMusic.bind(this));
   }
 
   pause() {
-    document.getElementById('pause')
+    document.getElementsByClassName('fa-pause')[0]
     .addEventListener('click', this.pauseMusic.bind(this));
   }
 
@@ -65,6 +67,7 @@ class AudioGround {
     if (this.audioCtx) {
       this.audioCtx.resume();
       this.visual.updateIntervalId();
+      this.togglePlayPause('pause');
     }
   }
 
@@ -72,6 +75,17 @@ class AudioGround {
     if (this.audioCtx) {
       this.audioCtx.suspend();
       this.visual.clearIntervalId();
+      this.togglePlayPause('play');
+    }
+  }
+
+  togglePlayPause(mode) {
+    if (mode ===  "play") {
+      $("#play").show();
+      $("#pause").hide();
+    } else {
+      $("#pause").show();
+      $("#play").hide();
     }
   }
 
@@ -83,6 +97,7 @@ class AudioGround {
         this.webSource.connect(this.analyserNode);
         this.analyserNode.connect(this.audioCtx.destination);
         this.visual.visualizer(this.analyserNode);
+        this.toggleMicrophone('noMicrophone');
       }).catch(function(err) {
         console.log("There was an error when getting microphone input: " + err);
       });
@@ -95,17 +110,29 @@ class AudioGround {
     if (this.webSource) {
       this.webSource.disconnect();
       this.webSource = null;
+      this.toggleMicrophone('microphone');
     }
   }
 
   startMonitoring() {
-    document.getElementById('start-monitoring')
+    document.getElementsByClassName('fa-microphone')[0]
     .addEventListener('click', this.handleMonitoring.bind(this));
   }
 
   stopMonitoring() {
-    document.getElementById('stop-monitoring')
+    document.getElementsByClassName('fa-microphone-slash')[0]
     .addEventListener('click', this.handleStopMonitoring.bind(this));
+  }
+
+  toggleMicrophone(mode) {
+    console.log(mode);
+    if (mode === "noMicrophone") {
+      $('#mic').hide();
+      $('#no-mic').show();
+    } else {
+      $('#no-mic').hide();
+      $('#mic').show();
+    }
   }
 
 }
