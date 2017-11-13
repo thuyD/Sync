@@ -59,10 +59,6 @@ li {
 	cursor: pointer;
 }
 
-.logo-container {
-  display: block;
-}
-
 .logo {
   font-family: 'Monoton', cursive;
   font-size: 50px;
@@ -90,7 +86,7 @@ display: none;
 }
 
 #color-bar {
-	background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet, hotpink, red);
+	background: linear-gradient(to right, yellow, green, aqua, blue, indigo, violet, deeppink, red, orange, yellow, green);
 	opacity: 0.25;
 	height: 20px;
 	width: 180px;
@@ -177,7 +173,7 @@ display: none;
     cursor: pointer;
 }
 
-#open-modal {
+#header {
 	display: flex;
 	justify-content: space-between;
 	padding: 50px;
@@ -186,7 +182,7 @@ display: none;
 	font-size: 25px;
 }
 
-#open-modal i {
+#open-modal {
 	margin-top: 25px;
 }
 

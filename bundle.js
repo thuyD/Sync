@@ -471,7 +471,7 @@ var Visualization = function () {
       var _this5 = this;
 
       document.getElementById('color-bar').addEventListener("click", function (event) {
-        _this5.hue = event.clientX * 2 - 20;
+        _this5.hue = event.clientX * 2 - 25;
       }.bind(this));
     }
   }, {
