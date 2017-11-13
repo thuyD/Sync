@@ -44,34 +44,37 @@
       </div>
 
         <div id="open-modal">
+          <h1 class="logo">Sync</h1>
           <i class="fa fa-question-circle" aria-hidden="true"></i>
         </div>
-
         <div class="content">
-          <div class="left">
-            <div id="sample" class="box big"><a>PLAY A SAMPLE TRACK</a></div>
-            <br>
-            <div class="box">
-              <label for="audio-input" id="input-label" class="big">CHOOSE A SONG</label>
-              <input id="audio-input" type="file">
-            </div>
-            <br>
-            <div id="microphone">
-              <div id="mic" class="box big">USE MICROPHONE</div>
-              <div id="no-mic" class="box big">DISABLE MICROPHONE</div>
-            </div>
-            <br>
-            <div id="pause-play">
-              <div id="play"><i class="fa fa-play fa-lg" aria-hidden="true"></i></div>
-              <div id="pause"><i class="fa fa-pause fa-lg" aria-hidden="true"></i></div>
-            </div>
-          </div>
 
-          <div class="right">
+          <div class="left">
+            <div class="options">
+              <div class="options-title big">
+                <p>INPUT</p>
+              </div>
+              <div class="option-items-large">
+                <div id="sample" class="small"><a>PLAY A SAMPLE TRACK</a></div>
+                <label for="audio-input" id="input-label" class="small">CHOOSE A SONG</label>
+                <input id="audio-input" type="file">
+                <div id="microphone">
+                  <div id="mic" class="small">USE MICROPHONE</div>
+                  <div id="no-mic" class="small">DISABLE MICROPHONE  <i class="fa fa-microphone-slash" aria-hidden="true"></i></div>
+                </div>
+                <div id="pause-play">
+                  <div id="play"><i class="fa fa-play" aria-hidden="true"></i></div>
+                  <div id="pause"><i class="fa fa-pause" aria-hidden="true"></i></div>
+                </div>
+              </div>
+            </div>
+
             <div class="options">
               <div class="options-title big"><p>COLOR</p></div>
-              <div id="color-bar"></div>
-              <p id="rotate-color" class="small">ROTATE COLOR</p>
+              <div class="option-items">
+                <div id="color-bar"></div>
+                <p id="rotate-color" class="small">ROTATE COLOR</p>
+              </div>
             </div>
             <br>
             <div class="options">
@@ -83,6 +86,7 @@
             </div>
           </div>
         </div>
+
     </main>
     <canvas id="board"></canvas>
   </body>

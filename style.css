@@ -34,17 +34,18 @@ li {
   font-size: 17px;
 	position: relative;
 	z-index: 1;
+	padding-left: 60px;
 }
 
 .content {
-	height: 100%;
-	width: 100%;
 	display: flex;
-	justify-content: space-around;
+	justify-content: space-between;
+	width: 100%;
 }
 
-.left, .right {
-	margin-top: 75px;
+.left h1 {
+	font-size: 50px;
+	font-family: 'Monoton', cursive;
 }
 
 .box {
@@ -89,7 +90,7 @@ display: none;
 }
 
 #color-bar {
-	background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet, hotpink);
+	background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet, hotpink, red);
 	opacity: 0.25;
 	height: 20px;
 	width: 180px;
@@ -109,21 +110,19 @@ display: none;
 
 #pause-play {
 	position: relative;
+	height: 21px;
+}
+
+#pause-play i {
+	font-size: 20px;
 }
 
 #microphone {
 	position: relative;
-	height: 70px;
 }
 
 #no-mic {
 	display: none;
-}
-
-#no-mic, #mic {
-	position: absolute;
-	top: 0px;
-	left: 0px;
 }
 
 .modal {
@@ -179,42 +178,36 @@ display: none;
 }
 
 #open-modal {
-	display: block;
-	padding-left: 50px;
-	padding-top: 50px;
+	display: flex;
+	justify-content: space-between;
+	padding: 50px;
+	padding-left: 15px;
+	padding-bottom: 0;
+	font-size: 25px;
+}
+
+#open-modal i {
+	margin-top: 25px;
 }
 
 .options {
-	width: 190px;
-	height: 110px;
+	width: 240px;
 	letter-spacing: 3px;
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
-	align-items: flex-end;
+	justify-content: space-around;
+	align-items: flex-start;
 	padding: 10px;
+	margin-bottom: 10px;
 }
 
 .options-title {
 	border-bottom: 1px solid white;
 	padding: 7px;
 	display: flex;
-	justify-content: flex-end;
-	margin-bottom: 10px;
+	justify-content: flex-start;
+	margin-bottom: 5px;
 	width: 92%;
-}
-
-.option-items {
-	display: flex;
-	justify-content: flex-end;
-}
-
-.options ul {
-	display: flex;
-	flex-direction: column;
-	height: 50%;
-	justify-content: space-between;
-	align-items: flex-end;
 }
 
 .small {
@@ -234,6 +227,22 @@ display: none;
 .fa:hover {
 	cursor: pointer;
 	color: #433660;
+}
+
+.option-items {
+	margin-top: 7px;
+	height: 60px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+}
+
+.option-items-large {
+	margin-top: 7px;
+	height: 100px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
 }
 
 .options:hover, .options:focus, .options:active {

@@ -134,7 +134,7 @@ class Visualization {
 
   selectColor() {
     document.getElementById('color-bar').addEventListener("click", ((event) => {
-      this.hue = event.clientX * 2;
+      this.hue = event.clientX * 2 - 20;
     }).bind(this));
   }
 
