@@ -7,7 +7,6 @@ class AudioGround {
     this.analyserNode = this.audioCtx.createAnalyser();
     this.analyserNode.smoothingTimeConstant = 0.3;
     this.aSourceNode = null;
-    this.webSource = null;
     this.visual = new Visualization();
     this.microphoneMode = "microphone";
   }
@@ -49,6 +48,7 @@ class AudioGround {
   startPlay(audio) {
     if (this.aSourceNode) {
       this.aSourceNode.disconnect(this.analyserNode);
+      this.aSourceNode = null;
     }
     const sourceNode = this.audioCtx.createMediaElementSource(audio);
     this.aSourceNode = sourceNode;
@@ -88,21 +88,30 @@ class AudioGround {
     if (mode ===  "play") {
       $("#play").show();
       $("#pause").hide();
-    } else {
+    } else if (mode === "pause"){
       $("#pause").show();
+      $("#play").hide();
+    } else {
+      $("#pause").hide();
       $("#play").hide();
     }
   }
 
   handleMonitoring() {
+    this.togglePlayPause("none");
     if (navigator.mediaDevices) {
       navigator.mediaDevices.getUserMedia({ audio: true, video: false })
       .then((stream) => {
-        this.webSource = this.audioCtx.createMediaStreamSource(stream);
-        this.webSource.connect(this.analyserNode);
+        if (this.aSourceNode) {
+          this.aSourceNode.disconnect(this.analyserNode);
+          this.aSourceNode = null;
+        }
+        const webSource = this.audioCtx.createMediaStreamSource(stream);
+        webSource.connect(this.analyserNode);
         this.analyserNode.connect(this.audioCtx.destination);
         this.visual.visualizer(this.analyserNode);
         this.toggleMicrophone('noMicrophone');
+        this.aSourceNode = webSource;
       }).catch(function(err) {
         console.log("There was an error when getting microphone input: " + err);
       });
@@ -112,9 +121,9 @@ class AudioGround {
   }
 
   handleStopMonitoring() {
-    if (this.webSource) {
-      this.webSource.disconnect();
-      this.webSource = null;
+    if (this.aSourceNode) {
+      this.aSourceNode.disconnect();
+      this.aSourceNode = null;
       this.toggleMicrophone('microphone');
     }
   }
@@ -130,7 +139,6 @@ class AudioGround {
   }
 
   toggleMicrophone(mode) {
-    console.log(mode);
     if (mode === "noMicrophone") {
       $('#mic').hide();
       $('#no-mic').show();
