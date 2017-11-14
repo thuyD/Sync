@@ -138,6 +138,7 @@ var AudioGround = function () {
     this.audioCtx = new AudioContext();
     this.analyserNode = this.audioCtx.createAnalyser();
     this.analyserNode.smoothingTimeConstant = 0.3;
+    this.aSourceNode = null;
     this.webSource = null;
     this.visual = new _visualization2.default();
     this.microphoneMode = "microphone";
@@ -190,7 +191,11 @@ var AudioGround = function () {
   }, {
     key: 'startPlay',
     value: function startPlay(audio) {
+      if (this.aSourceNode) {
+        this.aSourceNode.disconnect(this.analyserNode);
+      }
       var sourceNode = this.audioCtx.createMediaElementSource(audio);
+      this.aSourceNode = sourceNode;
       sourceNode.connect(this.analyserNode);
       this.analyserNode.connect(this.audioCtx.destination);
 
@@ -424,9 +429,9 @@ var Visualization = function () {
   }, {
     key: "drawOscilloscope",
     value: function drawOscilloscope(dataArray, bufferLength) {
-      this.canvasCtx.lineWidth = 2;
       this.canvasCtx.strokeStyle = "hsla(" + this.hue + ", " + this.sat + "%, " + this.light + "%, " + this.alpha + ")";
       this.canvasCtx.beginPath();
+      this.canvasCtx.lineWidth = 6;
 
       var sliceWidth = this.canvas.width * 1.0 / (bufferLength / 2);
       var x = 0;

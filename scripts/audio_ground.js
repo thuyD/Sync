@@ -6,6 +6,7 @@ class AudioGround {
     this.audioCtx = new AudioContext();
     this.analyserNode = this.audioCtx.createAnalyser();
     this.analyserNode.smoothingTimeConstant = 0.3;
+    this.aSourceNode = null;
     this.webSource = null;
     this.visual = new Visualization();
     this.microphoneMode = "microphone";
@@ -46,7 +47,11 @@ class AudioGround {
   }
 
   startPlay(audio) {
+    if (this.aSourceNode) {
+      this.aSourceNode.disconnect(this.analyserNode);
+    }
     const sourceNode = this.audioCtx.createMediaElementSource(audio);
+    this.aSourceNode = sourceNode;
     sourceNode.connect(this.analyserNode);
     this.analyserNode.connect(this.audioCtx.destination);
 

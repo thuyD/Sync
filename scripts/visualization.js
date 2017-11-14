@@ -94,9 +94,9 @@ class Visualization {
   }
 
   drawOscilloscope(dataArray, bufferLength) {
-    this.canvasCtx.lineWidth = 2;
     this.canvasCtx.strokeStyle = `hsla(${this.hue}, ${this.sat}%, ${this.light}%, ${this.alpha})`;
     this.canvasCtx.beginPath();
+    this.canvasCtx.lineWidth = 6;
 
     const sliceWidth = this.canvas.width * 1.0 / (bufferLength / 2);
     let x = 0;
