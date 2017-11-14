@@ -171,8 +171,10 @@ var AudioGround = function () {
       var audioInput = document.getElementById('audio-input');
       var audio = void 0;
       audioInput.addEventListener('change', function (e) {
+        console.log("first");
         audio = new Audio();
         audio.src = URL.createObjectURL(e.target.files[0]);
+        console.log(audio);
         _this2.stage(audio);
       });
     }
@@ -183,6 +185,7 @@ var AudioGround = function () {
 
       audio.addEventListener('canplay', function () {
         _this3.startPlay(audio);
+        console.log("third", audio);
         _this3.visual.visualizer(_this3.analyserNode);
         _this3.togglePlayPause('pause');
       });
@@ -190,12 +193,10 @@ var AudioGround = function () {
   }, {
     key: 'startPlay',
     value: function startPlay(audio) {
-      if (this.aSourceNode) {
-        this.aSourceNode.disconnect(this.analyserNode);
-        this.aSourceNode = null;
-      }
+      this.disconnectSourceNode();
       var sourceNode = this.audioCtx.createMediaElementSource(audio);
       this.aSourceNode = sourceNode;
+      console.log("second", this.aSourceNode);
       sourceNode.connect(this.analyserNode);
       this.analyserNode.connect(this.audioCtx.destination);
 
@@ -251,10 +252,7 @@ var AudioGround = function () {
       this.togglePlayPause("none");
       if (navigator.mediaDevices) {
         navigator.mediaDevices.getUserMedia({ audio: true, video: false }).then(function (stream) {
-          if (_this4.aSourceNode) {
-            _this4.aSourceNode.disconnect(_this4.analyserNode);
-            _this4.aSourceNode = null;
-          }
+          _this4.disconnectSourceNode();
           var webSource = _this4.audioCtx.createMediaStreamSource(stream);
           webSource.connect(_this4.analyserNode);
           _this4.analyserNode.connect(_this4.audioCtx.destination);
@@ -272,10 +270,9 @@ var AudioGround = function () {
     key: 'handleStopMonitoring',
     value: function handleStopMonitoring() {
       if (this.aSourceNode) {
-        this.aSourceNode.disconnect();
-        this.aSourceNode = null;
         this.toggleMicrophone('microphone');
       }
+      this.disconnectSourceNode();
     }
   }, {
     key: 'startMonitoring',
@@ -296,6 +293,14 @@ var AudioGround = function () {
       } else {
         $('#no-mic').hide();
         $('#mic').show();
+      }
+    }
+  }, {
+    key: 'disconnectSourceNode',
+    value: function disconnectSourceNode() {
+      if (this.aSourceNode) {
+        this.aSourceNode.disconnect();
+        this.aSourceNode = null;
       }
     }
   }]);

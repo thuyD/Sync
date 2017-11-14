@@ -31,8 +31,10 @@ class AudioGround {
     const audioInput = document.getElementById('audio-input');
     let audio;
     audioInput.addEventListener('change', (e) => {
+      console.log("first")
       audio = new Audio();
       audio.src = URL.createObjectURL(e.target.files[0]);
+      console.log(audio)
       this.stage(audio);
     });
   }
@@ -40,18 +42,17 @@ class AudioGround {
   stage(audio) {
     audio.addEventListener('canplay', () => {
       this.startPlay(audio);
+      console.log("third", audio);
       this.visual.visualizer(this.analyserNode);
       this.togglePlayPause('pause');
     });
   }
 
   startPlay(audio) {
-    if (this.aSourceNode) {
-      this.aSourceNode.disconnect(this.analyserNode);
-      this.aSourceNode = null;
-    }
+    this.disconnectSourceNode();
     const sourceNode = this.audioCtx.createMediaElementSource(audio);
     this.aSourceNode = sourceNode;
+    console.log("second", this.aSourceNode);
     sourceNode.connect(this.analyserNode);
     this.analyserNode.connect(this.audioCtx.destination);
 
@@ -102,10 +103,7 @@ class AudioGround {
     if (navigator.mediaDevices) {
       navigator.mediaDevices.getUserMedia({ audio: true, video: false })
       .then((stream) => {
-        if (this.aSourceNode) {
-          this.aSourceNode.disconnect(this.analyserNode);
-          this.aSourceNode = null;
-        }
+        this.disconnectSourceNode();
         const webSource = this.audioCtx.createMediaStreamSource(stream);
         webSource.connect(this.analyserNode);
         this.analyserNode.connect(this.audioCtx.destination);
@@ -122,10 +120,9 @@ class AudioGround {
 
   handleStopMonitoring() {
     if (this.aSourceNode) {
-      this.aSourceNode.disconnect();
-      this.aSourceNode = null;
       this.toggleMicrophone('microphone');
     }
+    this.disconnectSourceNode();
   }
 
   startMonitoring() {
@@ -145,6 +142,13 @@ class AudioGround {
     } else {
       $('#no-mic').hide();
       $('#mic').show();
+    }
+  }
+
+  disconnectSourceNode() {
+    if (this.aSourceNode) {
+      this.aSourceNode.disconnect();
+      this.aSourceNode = null;
     }
   }
 
