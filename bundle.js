@@ -171,10 +171,8 @@ var AudioGround = function () {
       var audioInput = document.getElementById('audio-input');
       var audio = void 0;
       audioInput.addEventListener('change', function (e) {
-        console.log("first");
         audio = new Audio();
         audio.src = URL.createObjectURL(e.target.files[0]);
-        console.log(audio);
         _this2.stage(audio);
       });
     }
@@ -185,7 +183,6 @@ var AudioGround = function () {
 
       audio.addEventListener('canplay', function () {
         _this3.startPlay(audio);
-        console.log("third", audio);
         _this3.visual.visualizer(_this3.analyserNode);
         _this3.togglePlayPause('pause');
       });
@@ -196,7 +193,6 @@ var AudioGround = function () {
       this.disconnectSourceNode();
       var sourceNode = this.audioCtx.createMediaElementSource(audio);
       this.aSourceNode = sourceNode;
-      console.log("second", this.aSourceNode);
       sourceNode.connect(this.analyserNode);
       this.analyserNode.connect(this.audioCtx.destination);
 
