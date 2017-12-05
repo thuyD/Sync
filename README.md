@@ -1,31 +1,18 @@
 # Sync
 
-Sync is a web application that generates stimulating visual representations of music files. It is built with Web Audio API and HTML5 Canvas.
+Sync is a music visualization app, built using Web Audio Api and HTML5 Canvas.
 
-Users can:
-* Play a sample track
-* Adjust color and visualizations
-* Choose from local music files
-* Can add up to 5 tracks to playlist
+![See Sync Live](https://thuydao.me/sync/)
 
-Project will also include:
-* An About modal to describe the various settings of the visualizer
+### Sync allows users to:
+* Users can choose from three different type of inputs: play a sample track, play an audio file from your computer, or use a microphone for live input. For the best experience, I recommended using a microphone from your headphone to reduce background noise rather than the build-in microphone from your computer.
+* Stylistic options include a color bar that dynamically adjusts the color of the visualizer base on your relative click position. You can also choose to cycle through colors, which changes every three seconds.
+* Select from two different styles of visualizer: waveform or ripple.
 
-### Time Line
+![alt text](sync/sync_playfile.gif)
 
-Phase I:
-* Learn how to use Canvas and Web Audio API
-* Determine what qualities of music will be visually represented
-
-Phase II:
-* Put up a small sample track on homepage
-* Build various styles of visualizer
-* Allow users to change colors of visualizer
-
-Phase  III:
-* Allow users to upload local tracks
-* Style page
-* Add an About modal
-
-Phase IV:
-* Allow users to add multiple tracks to a playlist
+### Future features:
+* Users can create and listen to playlists
+* Offer more visualizations
+* Allow for sound manipulation
+* Display artist name and track title
