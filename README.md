@@ -9,7 +9,7 @@ Sync is a music visualization app, built using Web Audio Api and HTML5 Canvas.
 * Stylistic options include a color bar that dynamically adjusts the color of the visualizer base on your relative click position. You can also choose to cycle through colors, which changes every three seconds.
 * Select from two different styles of visualizer: waveform or ripple.
 
-![alt text](sync/sync_playfile.gif)
+![alt text](sync_playfile.gif)
 
 ### Future features:
 * Users can create and listen to playlists
